@@ -1,8 +1,13 @@
 package org.wahlzeit.model;
 
-/**
- * Created by markus on 26.10.2016.
- */
 public class Location {
     public Coordinate coordinate;
+
+    /**
+     * Create Location with given Coordinate
+     * @param cord: Coordinate where location is
+     */
+    public Location(Coordinate cord) {
+        this.coordinate = cord;
+    }
 }
