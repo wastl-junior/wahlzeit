@@ -19,13 +19,20 @@
  */
 package org.wahlzeit.services.mailing;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.wahlzeit.main.ServiceMain;
 import org.wahlzeit.services.EmailAddress;
 
 /**
  *
  */
-public class EmailServiceTest extends TestCase {
+public class EmailServiceTest {
 
 	/**
 	 *
@@ -38,12 +45,16 @@ public class EmailServiceTest extends TestCase {
 	protected EmailAddress validAddress;
 
 
+	private boolean oldIsInProduction;
+
 	/**
 	 *
 	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
+
+		oldIsInProduction = ServiceMain.getInstance().getIsInProduction();
+		ServiceMain.getInstance().setIsInProduction(false);
 
 		emailService = EmailServiceManager.getDefaultService();
 
@@ -53,6 +64,7 @@ public class EmailServiceTest extends TestCase {
 	/**
 	 *
 	 */
+	@Test
 	public void testSendInvalidEmail() {
 		try {
 			assertFalse(emailService.sendEmailIgnoreException(validAddress, null, "lol", "hi"));
@@ -66,11 +78,17 @@ public class EmailServiceTest extends TestCase {
 	/**
 	 *
 	 */
+	@Test
 	public void testSendValidEmail() {
 		try {
 			assertTrue(emailService.sendEmailIgnoreException(validAddress, validAddress, "hi", "test"));
 		} catch (Exception ex) {
 			fail("Silent mode does not allow exceptions");
 		}
+	}
+
+	@After
+	public void cleanUp(){
+		ServiceMain.getInstance().setIsInProduction(oldIsInProduction);
 	}
 }
