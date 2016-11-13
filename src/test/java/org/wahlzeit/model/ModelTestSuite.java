@@ -15,6 +15,9 @@ import org.wahlzeit.model.persistence.*;
     LocationTest.class,
     PhotoFilterTest.class,
     TagsTest.class,
+    TractorPhotoFactoryTest.class,
+    TractorPhotoManagerTest.class,
+    TractorPhotoTest.class,
     UserStatusTest.class,
     ValueTest.class
 })
