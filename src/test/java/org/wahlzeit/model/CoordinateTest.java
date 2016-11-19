@@ -8,16 +8,19 @@ import static org.junit.Assert.assertEquals;
 /**
  * All test cases of the class {@link Coordinate}.
  */
-public class CoordinateTest {
+public abstract class CoordinateTest {
 
-    private static final double delta = 1e-10;
+    protected static final double delta = 1e-10;
 
-    private Coordinate northPole;
-    private Coordinate southPole;
-    private Coordinate equatorPoint1;
-    private Coordinate equatorPoint2;
-    private Coordinate equatorPoint3;
-    private Coordinate equatorPoint4;
+    protected Coordinate northPole;
+    protected Coordinate southPole;
+    protected Coordinate equatorPoint1;
+    protected Coordinate equatorPoint2;
+    protected Coordinate equatorPoint3;
+    protected Coordinate equatorPoint4;
+
+    @Before
+    public abstract void setupCoordinates ();
 
     /**
      * Help Method for checking getDistance in both orders to test whether getDistance is commutative
@@ -25,27 +28,16 @@ public class CoordinateTest {
      * @param cord1
      * @param cord2
      */
-    private void assertEqualsBothOrders(double expectedDistance, Coordinate cord1, Coordinate cord2){
+    protected void assertEqualsBothOrders(double expectedDistance, Coordinate cord1, Coordinate cord2){
         assertEquals(expectedDistance, cord1.getDistance(cord2), delta);
         assertEquals(expectedDistance, cord2.getDistance(cord1), delta);
     }
 
-    @Before
-    public void setupSomeCoordinates (){
-        northPole = new Coordinate(90, 0);
-        southPole = new Coordinate(-90, 0);
-
-        equatorPoint1 = new Coordinate(0, 0);
-        equatorPoint2 = new Coordinate(0, 90);
-        equatorPoint3 =  new Coordinate(0, 180);
-        equatorPoint4 =  new Coordinate(0, 270);
-    }
-
     @Test
     public void testGetDistanceSamePoint(){
-        assertEqualsBothOrders(0, northPole, new Coordinate(-270, 100));
-        assertEqualsBothOrders(0, southPole, new Coordinate(-450, 132));
-        assertEqualsBothOrders(0, equatorPoint1, new Coordinate(360, -360));
+        assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100));
+        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132));
+        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360));
     }
 
     @Test
