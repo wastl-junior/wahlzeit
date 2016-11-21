@@ -10,6 +10,9 @@ import static org.junit.Assert.assertEquals;
  */
 public abstract class CoordinateTest {
 
+
+    protected static final double EARTH_RADIUS = 6371;
+
     protected static final double delta = 1e-10;
 
     protected Coordinate northPole;
@@ -35,15 +38,17 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistanceSamePoint(){
-        assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100, Coordinate.EARTH_RADIUS));
-        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132, Coordinate.EARTH_RADIUS));
-        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360, Coordinate.EARTH_RADIUS));
+        assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100, EARTH_RADIUS));
+        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132, EARTH_RADIUS));
+        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360, EARTH_RADIUS));
     }
 
     @Test
     public void testGetDistance180Degree(){
-        // double halfEarthCircumference = Math.PI * Coordinate.EARTH_RADIUS;
-        double halfEarthCircumference = 2 * Coordinate.EARTH_RADIUS;
+        // double halfEarthCircumference = Math.PI * EARTH_RADIUS;
+        // Distance is now direct, through the earth
+        double halfEarthCircumference = 2 * EARTH_RADIUS;
+
         assertEqualsBothOrders(halfEarthCircumference, northPole, southPole);
         assertEqualsBothOrders(halfEarthCircumference, equatorPoint1, equatorPoint3);
         assertEqualsBothOrders(halfEarthCircumference, equatorPoint2, equatorPoint4);
@@ -51,8 +56,9 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistance90Degree(){
-        // double quarterEarthCircumference = Math.PI * Coordinate.EARTH_RADIUS / 2;
-        double quarterEarthCircumference = Math.sqrt(2 * Coordinate.EARTH_RADIUS * Coordinate.EARTH_RADIUS);
+        // double quarterEarthCircumference = Math.PI * EARTH_RADIUS / 2;
+        // Distance is now direct, through the earth
+        double quarterEarthCircumference = Math.sqrt(2 * EARTH_RADIUS * EARTH_RADIUS);
 
         Coordinate[] equatorPoints = {equatorPoint1, equatorPoint2, equatorPoint3, equatorPoint4};
 
@@ -73,6 +79,63 @@ public abstract class CoordinateTest {
 
             assertEqualsBothOrders(quarterEarthCircumference, equatorPoints[current], equatorPoints[next]);
             assertEqualsBothOrders(quarterEarthCircumference, equatorPoints[current], equatorPoints[previous]);
+        }
+    }
+
+
+    @Test
+    public void testConverters(){
+
+        class ConversionAssumption {
+            private CartesianCoordinate cartesianCoordinate;
+            private SphericCoordinate sphericCoordinate;
+
+            public ConversionAssumption(CartesianCoordinate cartesianCoordinate, SphericCoordinate sphericCoordinate){
+                this.cartesianCoordinate = cartesianCoordinate;
+                this.sphericCoordinate = sphericCoordinate;
+            }
+        }
+
+        // Enter aassumptions here what cartesian coordinate should match spheric coordinate
+        ConversionAssumption[] conversionAssumptions = new ConversionAssumption[]{
+                new ConversionAssumption(
+                        new CartesianCoordinate(0, 0, EARTH_RADIUS),
+                        new SphericCoordinate(90,0, EARTH_RADIUS)
+                ),
+                new ConversionAssumption(
+                        new CartesianCoordinate(0, 0, -EARTH_RADIUS),
+                        new SphericCoordinate(-90,0, EARTH_RADIUS)
+                ),
+                new ConversionAssumption(
+                        new CartesianCoordinate(0, EARTH_RADIUS, 0),
+                        new SphericCoordinate(0,90, EARTH_RADIUS)
+                ),
+                new ConversionAssumption(
+                        new CartesianCoordinate(0, -EARTH_RADIUS, 0),
+                        new SphericCoordinate(0,-90, EARTH_RADIUS)
+                ),
+                new ConversionAssumption(
+                        new CartesianCoordinate(EARTH_RADIUS, 0, 0),
+                        new SphericCoordinate(0,0, EARTH_RADIUS)
+                ),
+                new ConversionAssumption(
+                        new CartesianCoordinate(-EARTH_RADIUS, 0, 0),
+                        new SphericCoordinate(0,180, EARTH_RADIUS)
+                )
+        };
+
+        // Test aassumptions: Distance between coordinates must be zero
+        for( ConversionAssumption conversionAssumption : conversionAssumptions){
+            // Test if exact same point
+            assertEqualsBothOrders(0, conversionAssumption.cartesianCoordinate, conversionAssumption.cartesianCoordinate);
+            assertEqualsBothOrders(0, conversionAssumption.sphericCoordinate, conversionAssumption.sphericCoordinate);
+
+            // Test same point in other format
+            assertEqualsBothOrders(0, conversionAssumption.cartesianCoordinate, conversionAssumption.sphericCoordinate);
+
+            // Test same points with use of converters
+            assertEqualsBothOrders(0, conversionAssumption.cartesianCoordinate.asSphericCoordinate(), conversionAssumption.sphericCoordinate.asSphericCoordinate());
+            assertEqualsBothOrders(0, conversionAssumption.cartesianCoordinate.asCartesianCoordinate(), conversionAssumption.sphericCoordinate.asCartesianCoordinate());
         }
     }
 }

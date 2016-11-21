@@ -32,16 +32,15 @@ public class SphericCoordinate implements Coordinate {
     }
 
     @Override
-    public CartesianCoordiante asCartesianCoordinate() {
+    public CartesianCoordinate asCartesianCoordinate() {
         double latitudeRadian = Math.toRadians(getLatitude());
         double longitudeRadian = Math.toRadians(getLongitude());
 
-        // TODO proove if right
         double x = radius * Math.cos(latitudeRadian) * Math.cos(longitudeRadian);
         double y = radius * Math.cos(latitudeRadian) * Math.sin(longitudeRadian);
         double z = radius * Math.sin(latitudeRadian);
 
-        return new CartesianCoordiante(x, y, z);
+        return new CartesianCoordinate(x, y, z);
     }
 
     @Override
