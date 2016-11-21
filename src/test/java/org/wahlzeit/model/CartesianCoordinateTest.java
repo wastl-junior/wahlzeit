@@ -18,11 +18,6 @@ public class CartesianCoordinateTest extends CoordinateTest {
         equatorPoint4 =  new CartesianCoordiante(0, -Coordinate.EARTH_RADIUS, 0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorFail(){
-        new CartesianCoordiante(Coordinate.EARTH_RADIUS, Coordinate.EARTH_RADIUS, Coordinate.EARTH_RADIUS);
-    }
-
     @Test
     public void testConstructor(){
         // Point at latitude 45°

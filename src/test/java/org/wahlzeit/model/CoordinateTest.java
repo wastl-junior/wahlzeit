@@ -35,14 +35,15 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistanceSamePoint(){
-        assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100));
-        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132));
-        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360));
+        assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100, Coordinate.EARTH_RADIUS));
+        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132, Coordinate.EARTH_RADIUS));
+        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360, Coordinate.EARTH_RADIUS));
     }
 
     @Test
     public void testGetDistance180Degree(){
-        double halfEarthCircumference = Math.PI * Coordinate.EARTH_RADIUS;
+        // double halfEarthCircumference = Math.PI * Coordinate.EARTH_RADIUS;
+        double halfEarthCircumference = 2 * Coordinate.EARTH_RADIUS;
         assertEqualsBothOrders(halfEarthCircumference, northPole, southPole);
         assertEqualsBothOrders(halfEarthCircumference, equatorPoint1, equatorPoint3);
         assertEqualsBothOrders(halfEarthCircumference, equatorPoint2, equatorPoint4);
@@ -50,7 +51,8 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistance90Degree(){
-        double quarterEarthCircumference = Math.PI * Coordinate.EARTH_RADIUS / 2;
+        // double quarterEarthCircumference = Math.PI * Coordinate.EARTH_RADIUS / 2;
+        double quarterEarthCircumference = Math.sqrt(2 * Coordinate.EARTH_RADIUS * Coordinate.EARTH_RADIUS);
 
         Coordinate[] equatorPoints = {equatorPoint1, equatorPoint2, equatorPoint3, equatorPoint4};
 

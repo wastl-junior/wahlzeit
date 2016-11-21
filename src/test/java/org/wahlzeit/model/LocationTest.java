@@ -11,7 +11,7 @@ public class LocationTest {
 
     @Test
     public void testLocation(){
-        Coordinate cord = new SphericCoordinate(0,0);
+        Coordinate cord = new SphericCoordinate(0,0,0);
         Location lang = new Location(cord);
         assertEquals(lang.coordinate, cord);
     }

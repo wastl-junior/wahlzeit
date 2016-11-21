@@ -7,13 +7,13 @@ public class SphericCoordinateTest extends CoordinateTest {
 
     @Before
     public void setupCoordinates (){
-        northPole = new SphericCoordinate(90, 0);
-        southPole = new SphericCoordinate(-90, 0);
+        northPole = new SphericCoordinate(90, 0, Coordinate.EARTH_RADIUS);
+        southPole = new SphericCoordinate(-90, 0, Coordinate.EARTH_RADIUS);
 
-        equatorPoint1 = new SphericCoordinate(0, 0);
-        equatorPoint2 = new SphericCoordinate(0, 90);
-        equatorPoint3 =  new SphericCoordinate(0, 180);
-        equatorPoint4 =  new SphericCoordinate(0, 270);
+        equatorPoint1 = new SphericCoordinate(0, 0, Coordinate.EARTH_RADIUS);
+        equatorPoint2 = new SphericCoordinate(0, 90, Coordinate.EARTH_RADIUS);
+        equatorPoint3 =  new SphericCoordinate(0, 180, Coordinate.EARTH_RADIUS);
+        equatorPoint4 =  new SphericCoordinate(0, 270, Coordinate.EARTH_RADIUS);
     }
 
     @Test
@@ -33,33 +33,33 @@ public class SphericCoordinateTest extends CoordinateTest {
         ConversionAssumption[] conversionAssumptions = new ConversionAssumption[]{
                 new ConversionAssumption(
                         new CartesianCoordiante(0, 0, Coordinate.EARTH_RADIUS),
-                        new SphericCoordinate(90,0)
+                        new SphericCoordinate(90,0, Coordinate.EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
                         new CartesianCoordiante(0, 0, -Coordinate.EARTH_RADIUS),
-                        new SphericCoordinate(-90,0)
+                        new SphericCoordinate(-90,0, Coordinate.EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
                         new CartesianCoordiante(0, Coordinate.EARTH_RADIUS, 0),
-                        new SphericCoordinate(0,90)
+                        new SphericCoordinate(0,90, Coordinate.EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
                         new CartesianCoordiante(0, -Coordinate.EARTH_RADIUS, 0),
-                        new SphericCoordinate(0,-90)
+                        new SphericCoordinate(0,-90, Coordinate.EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
                         new CartesianCoordiante(Coordinate.EARTH_RADIUS, 0, 0),
-                        new SphericCoordinate(0,0)
+                        new SphericCoordinate(0,0, Coordinate.EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
                         new CartesianCoordiante(-Coordinate.EARTH_RADIUS, 0, 0),
-                        new SphericCoordinate(0,180)
+                        new SphericCoordinate(0,180, Coordinate.EARTH_RADIUS)
                 )
         };
 
         // Test aassumptions: Distance between coordinates must be zero
         for( ConversionAssumption conversionAssumption : conversionAssumptions){
-            assertEqualsBothOrders(0, SphericCoordinate.convertToSpheric(conversionAssumption.cartesianCoordiante), conversionAssumption.sphericCoordinate);
+            assertEqualsBothOrders(0, conversionAssumption.cartesianCoordiante, conversionAssumption.sphericCoordinate);
         }
     }
 }
