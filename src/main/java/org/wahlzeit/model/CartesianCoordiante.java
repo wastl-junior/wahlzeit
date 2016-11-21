@@ -8,33 +8,43 @@ public class CartesianCoordiante implements Coordinate{
     private final double z;
 
     /**
-     * Create new CartesianCoordiante
-     * Origin of the cartesian coordinate system is the center of the earth.
-     * The x-axis goes through the Greenwich-Meridian
-     * the y-axis goes from west to east
-     * The z-axis goes from south to north pole
-     * The given Position must be on earth surface, otherwise this Class would not be exchangeable by {@link SphericCoordinate}
-     * @param x: Distance form earth center on x-axis in kilometer
-     * @param y: Distance form earth center on y-axis in kilometer
-     * @param z: Distance form earth center on z-axis in kilometer
+     * Creating a new CartesianCoordiante from x, y and z
+     * @param x: Distance on x-axis in kilometer
+     * @param y: Distance on y-axis in kilometer
+     * @param z: Distance on z-axis in kilometer
      */
     public CartesianCoordiante(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
-
-        // check whether given point lays on earth surface
-        double radius = Math.sqrt(x*x + y*y + z*z);
-
-        if(Math.abs(radius - Coordinate.EARTH_RADIUS) > 1e-9){
-            throw new IllegalArgumentException("Given CartesianCoordiante is not on earth surface.");
-        }
     }
 
     @Override
     public double getDistance(Coordinate other) {
-        return SphericCoordinate.convertToSpheric(this).getDistance(other);
+        CartesianCoordiante otherAsCartesian = other.asCartesianCoordinate();
+
+        double diffX = getX() - otherAsCartesian.getX();
+        double diffY = getY() - otherAsCartesian.getY();
+        double diffZ = getZ() - otherAsCartesian.getZ();
+
+        return Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
     }
+
+    @Override
+    public CartesianCoordiante asCartesianCoordinate() {
+        return this;
+    }
+
+    @Override
+    public SphericCoordinate asSphericCoordinate() {
+        // Calculate latitude and longitude according to https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
+        double radius = Math.sqrt(x*x + y*y + z*z);
+        double latitude = Math.toDegrees(Math.atan2(z, Math.sqrt(x*x + y*y)));
+        double longitude = Math.toDegrees(Math.atan2(y, x));
+
+        return new SphericCoordinate(latitude, longitude, radius);
+    }
+
 
     public double getX() {
         return x;

@@ -4,62 +4,49 @@ public class SphericCoordinate implements Coordinate {
 
     private final double latitude;
     private final double longitude;
+    private final double radius;
 
     /**
      * Creating a new SphericCoordinate from latitude and longitude
-     * @param latitude: Latitude in degrees
-     * @param longitude: Longitude in degrees
+     * @param latitude : Latitude in degrees
+     * @param longitude : Longitude in degrees
+     * @param radius: Radius in kilometer
      */
-    public SphericCoordinate(double latitude, double longitude){
+    public SphericCoordinate(double latitude, double longitude, double radius){
+        if(radius < 0){
+            throw new IllegalArgumentException("No negative radius allowed for SphericCoordinate.");
+        }
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-
-    public static SphericCoordinate convertToSpheric(Coordinate cord){
-        if(cord instanceof SphericCoordinate){
-            return (SphericCoordinate) cord;
-        }
-        else if (cord instanceof CartesianCoordiante){
-            CartesianCoordiante cartesianCoordiante = (CartesianCoordiante) cord;
-            double x = cartesianCoordiante.getX();
-            double y = cartesianCoordiante.getY();
-            double z = cartesianCoordiante.getZ();
-
-            // Calculate latitude and longitude according to https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
-            double latitude = Math.toDegrees(Math.atan2(z, Math.sqrt(x*x + y*y)));
-            double longitude = Math.toDegrees(Math.atan2(y, x));
-
-            return new SphericCoordinate(latitude, longitude);
-        }
-
-        throw new IllegalArgumentException("Given Coordinate implementation is not known and cannot be converted to SphericCoordinate.");
+        this.radius = radius;
     }
 
     /**
      * Calculating distance between Coordinates
-     * @param other: SphericCoordinate
+     * @param other: Coordinate
      * @return distance between this coordinate and given other as double value
      */
     @Override
     public double getDistance(Coordinate other){
-        SphericCoordinate sphericOther = convertToSpheric(other);
+        return this.asCartesianCoordinate().getDistance(other.asCartesianCoordinate());
+    }
 
-        // Convert angles from degree measure to radian measure
-        // because trigonomic methods use angles in radians, see http://docs.oracle.com/javase/8/docs/api/index.html
+    @Override
+    public CartesianCoordiante asCartesianCoordinate() {
         double latitudeRadian = Math.toRadians(getLatitude());
         double longitudeRadian = Math.toRadians(getLongitude());
 
-        double latitudeRadianOther = Math.toRadians(sphericOther.getLatitude());
-        double longitudeRadianOther = Math.toRadians(sphericOther.getLongitude());
+        // TODO proove if right
+        double x = radius * Math.cos(latitudeRadian) * Math.cos(longitudeRadian);
+        double y = radius * Math.cos(latitudeRadian) * Math.sin(longitudeRadian);
+        double z = radius * Math.sin(latitudeRadian);
 
-        // use formula from wikipedia to calculate distance on surface, see https://en.wikipedia.org/wiki/Great-circle_distance
-        double deltaSigma = Math.acos(
-                Math.sin(latitudeRadian) * Math.sin(latitudeRadianOther)
-                + Math.cos(latitudeRadian) * Math.cos(latitudeRadianOther) * Math.cos(Math.abs(longitudeRadian - longitudeRadianOther))
-        );
+        return new CartesianCoordiante(x, y, z);
+    }
 
-        return EARTH_RADIUS * deltaSigma;
+    @Override
+    public SphericCoordinate asSphericCoordinate() {
+        return this;
     }
 
     public double getLatitude() {
@@ -68,5 +55,9 @@ public class SphericCoordinate implements Coordinate {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public double getRadius(){
+        return radius;
     }
 }
