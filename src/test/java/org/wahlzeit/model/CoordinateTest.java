@@ -45,27 +45,25 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistance180Degree(){
-        // double halfEarthCircumference = Math.PI * EARTH_RADIUS;
         // Distance is now direct, through the earth
-        double halfEarthCircumference = 2 * EARTH_RADIUS;
+        double expectedDistance = 2 * EARTH_RADIUS;
 
-        assertEqualsBothOrders(halfEarthCircumference, northPole, southPole);
-        assertEqualsBothOrders(halfEarthCircumference, equatorPoint1, equatorPoint3);
-        assertEqualsBothOrders(halfEarthCircumference, equatorPoint2, equatorPoint4);
+        assertEqualsBothOrders(expectedDistance, northPole, southPole);
+        assertEqualsBothOrders(expectedDistance, equatorPoint1, equatorPoint3);
+        assertEqualsBothOrders(expectedDistance, equatorPoint2, equatorPoint4);
     }
 
     @Test
     public void testGetDistance90Degree(){
-        // double quarterEarthCircumference = Math.PI * EARTH_RADIUS / 2;
         // Distance is now direct, through the earth
-        double quarterEarthCircumference = Math.sqrt(2 * EARTH_RADIUS * EARTH_RADIUS);
+        double expectedDistance = Math.sqrt(2 * EARTH_RADIUS * EARTH_RADIUS);
 
         Coordinate[] equatorPoints = {equatorPoint1, equatorPoint2, equatorPoint3, equatorPoint4};
 
         // Test from poles to equator
         for(Coordinate ep : equatorPoints){
-            assertEqualsBothOrders(quarterEarthCircumference, northPole, ep);
-            assertEqualsBothOrders(quarterEarthCircumference, southPole, ep);
+            assertEqualsBothOrders(expectedDistance, northPole, ep);
+            assertEqualsBothOrders(expectedDistance, southPole, ep);
         }
 
         // Test neighboured equator points
@@ -77,8 +75,8 @@ public abstract class CoordinateTest {
 
             int next = (current + 1) % equatorPoints.length;
 
-            assertEqualsBothOrders(quarterEarthCircumference, equatorPoints[current], equatorPoints[next]);
-            assertEqualsBothOrders(quarterEarthCircumference, equatorPoints[current], equatorPoints[previous]);
+            assertEqualsBothOrders(expectedDistance, equatorPoints[current], equatorPoints[next]);
+            assertEqualsBothOrders(expectedDistance, equatorPoints[current], equatorPoints[previous]);
         }
     }
 
