@@ -1,9 +1,10 @@
 package org.wahlzeit.model;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * All test cases of the class {@link Coordinate}.
@@ -41,6 +42,21 @@ public abstract class CoordinateTest {
         assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100, EARTH_RADIUS));
         assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132, EARTH_RADIUS));
         assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360, EARTH_RADIUS));
+    }
+
+    @Test
+    public void testIsEqual(){
+        // Test exact same points
+        assertTrue(northPole.isEqual(northPole));
+        assertTrue(equatorPoint1.isEqual(equatorPoint1));
+
+        // Test same points in different format / different Object
+        assertTrue(equatorPoint1.isEqual(new SphericCoordinate(0, 0, EARTH_RADIUS)));
+        assertTrue(equatorPoint1.isEqual(new CartesianCoordinate(EARTH_RADIUS, 0, 0)));
+
+        // Test different points
+        assertFalse(northPole.isEqual(southPole));
+        assertFalse(northPole.isEqual(equatorPoint1));
     }
 
     @Test

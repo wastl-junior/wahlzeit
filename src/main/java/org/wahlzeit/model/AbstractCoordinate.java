@@ -2,11 +2,8 @@ package org.wahlzeit.model;
 
 public abstract class AbstractCoordinate implements Coordinate{
 
-    /**
-     * Calculating direct distance between Coordinates
-     * @param other: Coordinate
-     * @return distance between this coordinate and given other as double value (representing kilometer)
-     */
+    public static final double EPSILON_FOR_SAME_POINT = 1e-10;
+
     @Override
     public double getDistance(Coordinate other) {
         CartesianCoordinate otherAsCartesian = other.asCartesianCoordinate();
@@ -17,6 +14,11 @@ public abstract class AbstractCoordinate implements Coordinate{
         double diffZ = thisAsCartesian.getZ() - otherAsCartesian.getZ();
 
         return Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+    }
+
+    @Override
+    public boolean isEqual(Coordinate other){
+        return this.getDistance(other) < EPSILON_FOR_SAME_POINT;
     }
 
 }
