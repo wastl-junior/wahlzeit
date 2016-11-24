@@ -1,6 +1,6 @@
 package org.wahlzeit.model;
 
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
     private final double latitude;
     private final double longitude;
@@ -21,15 +21,6 @@ public class SphericCoordinate implements Coordinate {
         this.radius = radius;
     }
 
-    /**
-     * Calculating distance between Coordinates
-     * @param other: Coordinate
-     * @return distance between this coordinate and given other as double value
-     */
-    @Override
-    public double getDistance(Coordinate other){
-        return this.asCartesianCoordinate().getDistance(other.asCartesianCoordinate());
-    }
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {

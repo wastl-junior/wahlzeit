@@ -1,6 +1,6 @@
 package org.wahlzeit.model;
 
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
 
     // Distances form earth center in kilometer
     private final double x;
@@ -17,17 +17,6 @@ public class CartesianCoordinate implements Coordinate{
         this.x = x;
         this.y = y;
         this.z = z;
-    }
-
-    @Override
-    public double getDistance(Coordinate other) {
-        CartesianCoordinate otherAsCartesian = other.asCartesianCoordinate();
-
-        double diffX = getX() - otherAsCartesian.getX();
-        double diffY = getY() - otherAsCartesian.getY();
-        double diffZ = getZ() - otherAsCartesian.getZ();
-
-        return Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
     }
 
     @Override
