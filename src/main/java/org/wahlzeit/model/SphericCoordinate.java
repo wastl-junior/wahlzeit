@@ -6,6 +6,24 @@ public class SphericCoordinate extends AbstractCoordinate {
     private final double longitude;
     private final double radius;
 
+    private void assertValidRadius(double radius){
+        if(radius < 0){
+            throw new IllegalArgumentException("No negative radius allowed for SphericCoordinate.");
+        }
+    }
+
+    private void assertValidLongitude(double longitude) {
+        if(longitude < -180 | longitude > 180){
+            throw new IllegalArgumentException("Invalid longitude '"+longitude+"' given (must be between -180 and 180).");
+        }
+    }
+
+    private void assertValidLatitude(double latitude) {
+        if(latitude < -90 || latitude > 90){
+            throw new IllegalArgumentException("Invalid latitude '"+ latitude +"' given (must be between -90 and 90).");
+        }
+    }
+
     /**
      * Creating a new SphericCoordinate from latitude and longitude
      * @param latitude : Latitude in degrees
@@ -13,9 +31,9 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @param radius: Radius in kilometer
      */
     public SphericCoordinate(double latitude, double longitude, double radius){
-        if(radius < 0){
-            throw new IllegalArgumentException("No negative radius allowed for SphericCoordinate.");
-        }
+        assertValidRadius(radius);
+        assertValidLongitude(longitude);
+        assertValidLatitude(latitude);
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;

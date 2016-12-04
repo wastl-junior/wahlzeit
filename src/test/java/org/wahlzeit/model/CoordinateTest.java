@@ -39,9 +39,9 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistanceSamePoint(){
-        assertEqualsBothOrders(0, northPole, new SphericCoordinate(-270, 100, EARTH_RADIUS));
-        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-450, 132, EARTH_RADIUS));
-        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(360, -360, EARTH_RADIUS));
+        assertEqualsBothOrders(0, northPole, new SphericCoordinate( 90, 100, EARTH_RADIUS));
+        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-90, 132, EARTH_RADIUS));
+        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(0, 0, EARTH_RADIUS));
     }
 
     @Test
@@ -151,5 +151,15 @@ public abstract class CoordinateTest {
             assertEqualsBothOrders(0, conversionAssumption.cartesianCoordinate.asSphericCoordinate(), conversionAssumption.sphericCoordinate.asSphericCoordinate());
             assertEqualsBothOrders(0, conversionAssumption.cartesianCoordinate.asCartesianCoordinate(), conversionAssumption.sphericCoordinate.asCartesianCoordinate());
         }
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testGetDistanceFail(){
+        northPole.getDistance(null);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testIsEqualFail(){
+        northPole.isEqual(null);
     }
 }

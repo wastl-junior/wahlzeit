@@ -15,12 +15,22 @@ public class SphericCoordinateTest extends CoordinateTest {
         equatorPoint1 = new SphericCoordinate(0, 0, EARTH_RADIUS);
         equatorPoint2 = new SphericCoordinate(0, 90, EARTH_RADIUS);
         equatorPoint3 =  new SphericCoordinate(0, 180, EARTH_RADIUS);
-        equatorPoint4 =  new SphericCoordinate(0, 270, EARTH_RADIUS);
+        equatorPoint4 =  new SphericCoordinate(0, -90, EARTH_RADIUS);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailRadius(){
+        new SphericCoordinate(0,0,-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailLatidude(){
+        new SphericCoordinate(91,0,0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorFail(){
-        new SphericCoordinate(0,0,-1);
+        new SphericCoordinate(0,-181,0);
     }
 
     @Test
