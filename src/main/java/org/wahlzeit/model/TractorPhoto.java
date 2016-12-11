@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Subclass;
+import static org.wahlzeit.utils.AssertionUtil.*;
 
 @Subclass
 @Entity
@@ -20,11 +21,14 @@ public class TractorPhoto extends Photo {
     }
 
     public TractorPhoto(PhotoId id){
-        this(id, 0, "", "", false);
+        super(id);
     }
 
     public TractorPhoto(PhotoId id, int horsepower, String brand, String modelName, boolean allWheelDrive){
         super(id);
+        assertNotNull(id);
+        assertNonEmptyString(brand);
+        assertNonEmptyString(modelName);
         this.horsepower = horsepower;
         this.brand = brand;
         this.modelName = modelName;
@@ -47,6 +51,7 @@ public class TractorPhoto extends Photo {
     }
 
     public void setBrand(String brand) {
+        assertNonEmptyString(brand);
         this.brand = brand;
     }
 
@@ -55,6 +60,7 @@ public class TractorPhoto extends Photo {
     }
 
     public void setModelName(String modelName) {
+        assertNonEmptyString(modelName);
         this.modelName = modelName;
     }
 

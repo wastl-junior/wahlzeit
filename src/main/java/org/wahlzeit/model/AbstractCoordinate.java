@@ -1,4 +1,5 @@
 package org.wahlzeit.model;
+import static org.wahlzeit.utils.AssertionUtil.assertNotNull;
 
 public abstract class AbstractCoordinate implements Coordinate{
 
@@ -6,7 +7,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     @Override
     public double getDistance(Coordinate other) {
-        assert other != null : "getDistance: other Coordinate must not be null";
+        assertNotNull(other);
         CartesianCoordinate otherAsCartesian = other.asCartesianCoordinate();
         CartesianCoordinate thisAsCartesian  = this.asCartesianCoordinate();
 
@@ -19,7 +20,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     @Override
     public boolean isEqual(Coordinate other){
-        assert other != null : "isEqual: other Coordinate must not be null";
+        assertNotNull(other);
         return this.getDistance(other) < EPSILON_FOR_SAME_POINT;
     }
 
