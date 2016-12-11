@@ -153,12 +153,12 @@ public abstract class CoordinateTest {
         }
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetDistanceFail(){
         northPole.getDistance(null);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testIsEqualFail(){
         northPole.isEqual(null);
     }

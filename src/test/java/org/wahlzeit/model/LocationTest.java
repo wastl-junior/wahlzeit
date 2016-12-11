@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,10 +10,35 @@ import static org.junit.Assert.assertEquals;
  */
 public class LocationTest {
 
+    private SphericCoordinate coordinate;
+    private Location location;
+
+    @Before
+    public void setUp(){
+        coordinate = new SphericCoordinate(0,0,0);
+        location = new Location(coordinate);
+    }
+
     @Test
-    public void testLocation(){
-        Coordinate cord = new SphericCoordinate(0,0,0);
-        Location lang = new Location(cord);
-        assertEquals(lang.coordinate, cord);
+    public void testConstructor(){
+        Location location = new Location(coordinate);
+        assertEquals(location.getCoordinate(), coordinate);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFail(){
+        new Location(null);
+    }
+
+    @Test
+    public void testSetCoordinate(){
+        SphericCoordinate other = new SphericCoordinate(1,2,3);
+        location.setCoordinate(other);
+        assertEquals(location.getCoordinate(), other);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetCoordinateFail(){
+        location.setCoordinate(null);
     }
 }

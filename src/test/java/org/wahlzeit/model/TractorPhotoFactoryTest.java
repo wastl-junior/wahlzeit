@@ -21,4 +21,10 @@ public class TractorPhotoFactoryTest {
         Assert.assertTrue(PhotoFactory.getInstance() instanceof TractorPhotoFactory);
         Assert.assertTrue(PhotoFactory.getInstance().createPhoto() instanceof TractorPhoto);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateFail() throws ClassNotFoundException {
+        Class.forName("org.wahlzeit.model.TractorPhotoFactory");
+        PhotoFactory.getInstance().createPhoto(null);
+    }
 }
