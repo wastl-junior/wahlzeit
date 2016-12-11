@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 import static org.wahlzeit.utils.AssertionUtil.assertNotNull;
+import static org.wahlzeit.utils.AssertionUtil.assertValidDouble;
 
 public abstract class AbstractCoordinate implements Coordinate{
 
@@ -15,7 +16,9 @@ public abstract class AbstractCoordinate implements Coordinate{
         double diffY = thisAsCartesian.getY() - otherAsCartesian.getY();
         double diffZ = thisAsCartesian.getZ() - otherAsCartesian.getZ();
 
-        return Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+        double result = Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+        assertValidDouble(result);
+        return result;
     }
 
     @Override

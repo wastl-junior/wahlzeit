@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import static org.wahlzeit.utils.AssertionUtil.assertValidDouble;
+
 public class SphericCoordinate extends AbstractCoordinate {
 
     private final double latitude;
@@ -7,18 +9,21 @@ public class SphericCoordinate extends AbstractCoordinate {
     private final double radius;
 
     private void assertValidRadius(double radius){
+        assertValidDouble(radius);
         if(radius < 0){
             throw new IllegalArgumentException("No negative radius allowed for SphericCoordinate.");
         }
     }
 
     private void assertValidLongitude(double longitude) {
+        assertValidDouble(longitude);
         if(longitude < -180 | longitude > 180){
             throw new IllegalArgumentException("Invalid longitude '"+longitude+"' given (must be between -180 and 180).");
         }
     }
 
     private void assertValidLatitude(double latitude) {
+        assertValidDouble(latitude);
         if(latitude < -90 || latitude > 90){
             throw new IllegalArgumentException("Invalid latitude '"+ latitude +"' given (must be between -90 and 90).");
         }

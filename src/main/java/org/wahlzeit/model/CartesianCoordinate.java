@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import static org.wahlzeit.utils.AssertionUtil.assertValidDouble;
+
 public class CartesianCoordinate extends AbstractCoordinate{
 
     // Distances form earth center in kilometer
@@ -14,6 +16,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @param z: Distance on z-axis in kilometer
      */
     public CartesianCoordinate(double x, double y, double z){
+        assertValidDouble(x);
+        assertValidDouble(y);
+        assertValidDouble(z);
         this.x = x;
         this.y = y;
         this.z = z;

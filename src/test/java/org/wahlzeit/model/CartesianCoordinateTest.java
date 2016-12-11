@@ -33,4 +33,20 @@ public class CartesianCoordinateTest extends CoordinateTest {
             assertEquals(z, cartesianCoordinate.getZ(), delta);
         }
     }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailNegInf(){
+        new CartesianCoordinate(Double.NEGATIVE_INFINITY,0,0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailPosInf(){
+        new CartesianCoordinate(0,Double.POSITIVE_INFINITY,0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailNegNan(){
+        new CartesianCoordinate(0,0,Double.NaN);
+    }
 }

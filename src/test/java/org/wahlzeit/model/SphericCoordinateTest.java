@@ -24,13 +24,28 @@ public class SphericCoordinateTest extends CoordinateTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorFailLatidude(){
+    public void testConstructorFailLatitude(){
         new SphericCoordinate(91,0,0);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorFail(){
+    public void testConstructorFailLongitude(){
         new SphericCoordinate(0,-181,0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailNegInf(){
+        new SphericCoordinate(Double.NEGATIVE_INFINITY,0,0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailPosInf(){
+        new SphericCoordinate(0,Double.POSITIVE_INFINITY,0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorFailNegNan(){
+        new SphericCoordinate(0,0,Double.NaN);
     }
 
     @Test
