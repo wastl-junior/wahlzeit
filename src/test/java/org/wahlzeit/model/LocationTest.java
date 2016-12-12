@@ -15,7 +15,7 @@ public class LocationTest {
 
     @Before
     public void setUp(){
-        coordinate = new SphericCoordinate(0,0,0);
+        coordinate = SphericCoordinate.createSphericCoordinate(0,0,0);
         location = new Location(coordinate);
     }
 
@@ -32,7 +32,7 @@ public class LocationTest {
 
     @Test
     public void testSetCoordinate(){
-        SphericCoordinate other = new SphericCoordinate(1,2,3);
+        SphericCoordinate other = SphericCoordinate.createSphericCoordinate(1,2,3);
         location.setCoordinate(other);
         assertEquals(location.getCoordinate(), other);
     }

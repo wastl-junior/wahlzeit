@@ -1,6 +1,5 @@
 package org.wahlzeit.model;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,9 +38,9 @@ public abstract class CoordinateTest {
 
     @Test
     public void testGetDistanceSamePoint(){
-        assertEqualsBothOrders(0, northPole, new SphericCoordinate( 90, 100, EARTH_RADIUS));
-        assertEqualsBothOrders(0, southPole, new SphericCoordinate(-90, 132, EARTH_RADIUS));
-        assertEqualsBothOrders(0, equatorPoint1, new SphericCoordinate(0, 0, EARTH_RADIUS));
+        assertEqualsBothOrders(0, northPole, SphericCoordinate.createSphericCoordinate( 90, 100, EARTH_RADIUS));
+        assertEqualsBothOrders(0, southPole, SphericCoordinate.createSphericCoordinate(-90, 132, EARTH_RADIUS));
+        assertEqualsBothOrders(0, equatorPoint1, SphericCoordinate.createSphericCoordinate(0, 0, EARTH_RADIUS));
     }
 
     @Test
@@ -51,8 +50,8 @@ public abstract class CoordinateTest {
         assertTrue(equatorPoint1.isEqual(equatorPoint1));
 
         // Test same points in different format / different Object
-        assertTrue(equatorPoint1.isEqual(new SphericCoordinate(0, 0, EARTH_RADIUS)));
-        assertTrue(equatorPoint1.isEqual(new CartesianCoordinate(EARTH_RADIUS, 0, 0)));
+        assertTrue(equatorPoint1.isEqual(SphericCoordinate.createSphericCoordinate(0, 0, EARTH_RADIUS)));
+        assertTrue(equatorPoint1.isEqual(CartesianCoordinate.createCartesianCoordinate(EARTH_RADIUS, 0, 0)));
 
         // Test different points
         assertFalse(northPole.isEqual(southPole));
@@ -113,28 +112,28 @@ public abstract class CoordinateTest {
         // Enter aassumptions here what cartesian coordinate should match spheric coordinate
         ConversionAssumption[] conversionAssumptions = new ConversionAssumption[]{
                 new ConversionAssumption(
-                        new CartesianCoordinate(0, 0, EARTH_RADIUS),
-                        new SphericCoordinate(90,0, EARTH_RADIUS)
+                        CartesianCoordinate.createCartesianCoordinate(0, 0, EARTH_RADIUS),
+                        SphericCoordinate.createSphericCoordinate(90,0, EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
-                        new CartesianCoordinate(0, 0, -EARTH_RADIUS),
-                        new SphericCoordinate(-90,0, EARTH_RADIUS)
+                        CartesianCoordinate.createCartesianCoordinate(0, 0, -EARTH_RADIUS),
+                        SphericCoordinate.createSphericCoordinate(-90,0, EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
-                        new CartesianCoordinate(0, EARTH_RADIUS, 0),
-                        new SphericCoordinate(0,90, EARTH_RADIUS)
+                        CartesianCoordinate.createCartesianCoordinate(0, EARTH_RADIUS, 0),
+                        SphericCoordinate.createSphericCoordinate(0,90, EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
-                        new CartesianCoordinate(0, -EARTH_RADIUS, 0),
-                        new SphericCoordinate(0,-90, EARTH_RADIUS)
+                        CartesianCoordinate.createCartesianCoordinate(0, -EARTH_RADIUS, 0),
+                        SphericCoordinate.createSphericCoordinate(0,-90, EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
-                        new CartesianCoordinate(EARTH_RADIUS, 0, 0),
-                        new SphericCoordinate(0,0, EARTH_RADIUS)
+                        CartesianCoordinate.createCartesianCoordinate(EARTH_RADIUS, 0, 0),
+                        SphericCoordinate.createSphericCoordinate(0,0, EARTH_RADIUS)
                 ),
                 new ConversionAssumption(
-                        new CartesianCoordinate(-EARTH_RADIUS, 0, 0),
-                        new SphericCoordinate(0,180, EARTH_RADIUS)
+                        CartesianCoordinate.createCartesianCoordinate(-EARTH_RADIUS, 0, 0),
+                        SphericCoordinate.createSphericCoordinate(0,180, EARTH_RADIUS)
                 )
         };
 
