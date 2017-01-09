@@ -6,6 +6,14 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     public static final double EPSILON_FOR_SAME_POINT = 1e-10;
 
+    /*
+    @PatternInstance(
+        patternName = "TemplateMethod"
+        participants = {
+            "TemplateMethod", "Individual operations in subclasses (asCartesianCoordinate())"
+        }
+    )
+    */
     @Override
     public double getDistance(Coordinate other) {
         assertNotNull(other);

@@ -26,6 +26,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+/*
+@PatternInstance(
+    patternName = "Null Object"
+    participants = {
+        "Null Object"
+    }
+)
+*/
 /**
  * A null servlet.
  */

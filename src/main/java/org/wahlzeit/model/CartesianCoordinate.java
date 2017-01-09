@@ -4,6 +4,14 @@ import java.util.HashMap;
 
 import static org.wahlzeit.utils.AssertionUtil.assertValidDouble;
 
+/*
+@PatternInstance(
+    patternName = "ValueObject"
+    participants = {
+        "ValueObject"
+    }
+)
+*/
 public class CartesianCoordinate extends AbstractCoordinate{
     private static final HashMap<CartesianCoordinate, CartesianCoordinate> allCartesianCoordinates = new HashMap<>();
 

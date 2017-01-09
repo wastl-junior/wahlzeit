@@ -4,6 +4,14 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Subclass;
 import static org.wahlzeit.utils.AssertionUtil.*;
 
+/*
+@PatternInstance(
+    patternName = "Abstract Factory"
+    participants = {
+        "AbstractFactory", "ConcreteFactory", "AbstractProduct", "ConcreteProduct"
+    }
+)
+*/
 @Subclass
 @Entity
 public class TractorPhoto extends Photo {

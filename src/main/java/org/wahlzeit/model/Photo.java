@@ -34,6 +34,14 @@ import org.wahlzeit.services.ObjectManager;
 
 import java.util.Map;
 
+/*
+@PatternInstance(
+    patternName = "Abstract Factory"
+    participants = {
+        "AbstractFactory", "ConcreteFactory", "AbstractProduct", "ConcreteProduct"
+    }
+)
+*/
 /**
  * A photo represents a user-provided (uploaded) photo.
  */

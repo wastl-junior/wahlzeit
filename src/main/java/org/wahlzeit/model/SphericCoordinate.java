@@ -4,6 +4,14 @@ import java.util.HashMap;
 
 import static org.wahlzeit.utils.AssertionUtil.assertValidDouble;
 
+/*
+@PatternInstance(
+    patternName = "ValueObject"
+    participants = {
+        "ValueObject"
+    }
+)
+*/
 public class SphericCoordinate extends AbstractCoordinate {
     private static final HashMap<SphericCoordinate, SphericCoordinate> allSphericCoordinates = new HashMap<>();
 

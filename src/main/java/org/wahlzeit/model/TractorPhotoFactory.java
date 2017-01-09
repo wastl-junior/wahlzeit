@@ -1,6 +1,14 @@
 package org.wahlzeit.model;
 import static org.wahlzeit.utils.AssertionUtil.assertNotNull;
 
+/*
+@PatternInstance(
+    patternName = "Abstract Factory"
+    participants = {
+        "AbstractFactory", "ConcreteFactory", "AbstractProduct", "ConcreteProduct"
+    }
+)
+*/
 public class TractorPhotoFactory extends PhotoFactory {
 
     static {
