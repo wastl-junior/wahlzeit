@@ -7,6 +7,8 @@ public class TractorType {
     private String brand;
     private String modelName;
 
+    private TractorType superType;
+
     public TractorType(int horsepower, String brand, String modelName) {
         assertNonEmptyString(brand);
         assertNonEmptyString(modelName);
@@ -16,6 +18,48 @@ public class TractorType {
         this.horsepower = horsepower;
         this.brand = brand;
         this.modelName = modelName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TractorType that = (TractorType) o;
+
+        if (horsepower != that.horsepower) return false;
+        if (brand != null ? !brand.equals(that.brand) : that.brand != null) return false;
+        if (modelName != null ? !modelName.equals(that.modelName) : that.modelName != null) return false;
+        return superType != null ? superType.equals(that.superType) : that.superType == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = horsepower;
+        result = 31 * result + (brand != null ? brand.hashCode() : 0);
+        result = 31 * result + (modelName != null ? modelName.hashCode() : 0);
+        result = 31 * result + (superType != null ? superType.hashCode() : 0);
+        return result;
+    }
+
+
+    public TractorType getSuperType() {
+        return superType;
+    }
+
+    public void setSuperType(TractorType superType) {
+        this.superType = superType;
+    }
+
+    public boolean isSubtype(TractorType type){
+        TractorType curr = superType;
+        while(curr != null){
+            if(curr == type){
+                return true;
+            }
+            curr = curr.getSuperType();
+        }
+        return false;
     }
 
     public int getHorsepower() {

@@ -16,6 +16,26 @@ public class Tractor {
         this.frontPTO = frontPTO;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tractor tractor = (Tractor) o;
+
+        if (allWheelDrive != tractor.allWheelDrive) return false;
+        if (frontPTO != tractor.frontPTO) return false;
+        return type != null ? type.equals(tractor.type) : tractor.type == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (allWheelDrive ? 1 : 0);
+        result = 31 * result + (frontPTO ? 1 : 0);
+        return result;
+    }
+
     public TractorType getType() {
         return type;
     }

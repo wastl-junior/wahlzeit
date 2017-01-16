@@ -20,7 +20,10 @@ import org.wahlzeit.model.persistence.*;
     TractorPhotoManagerTest.class,
     TractorPhotoTest.class,
     UserStatusTest.class,
-    ValueTest.class
+    ValueTest.class,
+    TractorTest.class,
+    TractorTypeTest.class,
+    TractorManagerTest.class
 })
 
 public class ModelTestSuite {}
