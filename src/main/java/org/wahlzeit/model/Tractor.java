@@ -1,7 +1,10 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Subclass;
+
 import static org.wahlzeit.utils.AssertionUtil.assertNotNull;
 
+@Subclass
 public class Tractor {
     private TractorType type;
 
