@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Serialize;
 import com.googlecode.objectify.annotation.Subclass;
 
 import static org.wahlzeit.utils.AssertionUtil.assertNonEmptyString;
@@ -11,7 +12,8 @@ public class TractorType {
     private String brand;
     private String modelName;
 
-    @Ignore TractorType superType;
+    @Serialize
+    TractorType superType;
 
     public TractorType(int horsepower, String brand, String modelName) {
         assertNonEmptyString(brand);
