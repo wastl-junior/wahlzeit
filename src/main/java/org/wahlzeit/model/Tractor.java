@@ -12,6 +12,7 @@ public class Tractor {
     private boolean allWheelDrive;
     private boolean frontPTO;
 
+    // Constructor is leaf in creation of Tractor-Objects
     public Tractor(TractorType type, boolean allWheelDrive, boolean frontPTO){
         assertNotNull(type);
         this.type = type;

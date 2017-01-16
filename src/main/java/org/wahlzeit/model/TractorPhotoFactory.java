@@ -18,6 +18,7 @@ public class TractorPhotoFactory extends PhotoFactory {
     /**
      * @methodtype factory
      */
+    // creating a TractorPhoto using the constructor
     public Photo createPhoto() {
         return new TractorPhoto();
     }
@@ -25,6 +26,7 @@ public class TractorPhotoFactory extends PhotoFactory {
     /**
      * Creates a new photo with the specified id
      */
+    // creating a TractorPhoto using the constructor
     public Photo createPhoto(PhotoId id) {
         assertNotNull(id);
         return new TractorPhoto(id);

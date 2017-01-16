@@ -63,6 +63,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	// creating a photo from network request using the PhotoManager
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
 

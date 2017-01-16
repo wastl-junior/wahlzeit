@@ -26,6 +26,7 @@ public class TractorManager extends ObjectManager {
         return tractorCache.get(tractor);
     }
 
+    // creates Tractors and manages instances
     public synchronized Tractor createTractor(TractorType type, boolean allWheelDrive, boolean frontPTO){
         Tractor tractor = new Tractor(type, allWheelDrive, frontPTO);
 
